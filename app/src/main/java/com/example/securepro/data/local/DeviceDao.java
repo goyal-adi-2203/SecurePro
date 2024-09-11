@@ -1,5 +1,6 @@
 package com.example.securepro.data.local;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,20 +14,23 @@ import java.util.List;
 @Dao
 public interface DeviceDao {
     @Insert
-    public void insert(Device device);
+    void insert(Device device);
 
     @Update
-    public void update(Device device);
+    void update(Device device);
 
     @Delete
-    public void delete(Device device);
+    void delete(Device device);
 
     @Query("DELETE from device_table")
-    public void deleteAll();
+    void deleteAll();
 
     @Query("SELECT * FROM device_table WHERE id=:id")
-    public Device getDevice(int id);
+    Device getDevice(int id);
 
     @Query("SELECT * FROM device_table")
-    public List<Device> getAllDevice();
+    List<Device> getAllDevice();
+
+    @Query("SELECT * FROM device_table")
+    LiveData<List<Device>> getAllDevicesLive() ;
 }
