@@ -1,5 +1,7 @@
 package com.example.securepro.presentation.home;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,19 +14,22 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.securepro.R;
 import com.example.securepro.domain.model.Device;
 import com.example.securepro.utils.DeviceListAdapter;
+import com.example.securepro.presentation.home.AddDeviceInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
+
 
 public class DeviceListActivity extends AppCompatActivity {
     private DeviceViewModel deviceViewModel;
     private DeviceListAdapter adapter;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Context context = getApplicationContext();
 
         RecyclerView recyclerView = findViewById(R.id.recyclerview);
         adapter = new DeviceListAdapter(this);
@@ -43,8 +48,8 @@ public class DeviceListActivity extends AppCompatActivity {
         fabAddDevice.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Device newDevice = new Device("dev1", "pswd", "door");
-                deviceViewModel.insert(newDevice);
+                Intent intent = new Intent(context, AddDeviceInfo.class);
+                startActivity(intent);
             }
         });
 
