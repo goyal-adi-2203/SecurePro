@@ -1,23 +1,26 @@
 package com.example.securepro.domain.model;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
 @Entity(tableName = "device_table")
 public class Device {
-    @PrimaryKey(autoGenerate = true)
-    private int id;
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String name;
     private String password;
     private String deviceType;
 
-    public Device(String name, String password, String deviceType) {
+    public Device(String id, String name, String password, String deviceType) {
+        this.id = id;
         this.name = name;
         this.password = password;
         this.deviceType = deviceType;
     }
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
@@ -33,7 +36,7 @@ public class Device {
         return deviceType;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

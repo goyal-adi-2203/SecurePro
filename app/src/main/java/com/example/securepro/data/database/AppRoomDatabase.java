@@ -11,7 +11,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.securepro.data.local.DeviceDao;
 import com.example.securepro.domain.model.Device;
 
-@Database(entities = {Device.class}, version = 1, exportSchema = false)
+@Database(entities = {Device.class}, version = 2, exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
     private static AppRoomDatabase instance;
     public abstract DeviceDao deviceDao();
@@ -21,6 +21,7 @@ public abstract class AppRoomDatabase extends RoomDatabase {
             instance =
                     Room.databaseBuilder(context.getApplicationContext(),
                             AppRoomDatabase.class, "secure_pro_database")
+                            .fallbackToDestructiveMigration()
                             .build();
         }
 
