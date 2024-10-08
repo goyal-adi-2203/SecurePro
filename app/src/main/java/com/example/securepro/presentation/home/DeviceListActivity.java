@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.securepro.R;
 import com.example.securepro.domain.model.Device;
+import com.example.securepro.utils.BaseActivity;
 import com.example.securepro.utils.DeviceListAdapter;
 import com.example.securepro.presentation.home.AddDeviceInfo;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -20,14 +21,16 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.List;
 
 
-public class DeviceListActivity extends AppCompatActivity {
+public class DeviceListActivity extends BaseActivity {
     private DeviceViewModel deviceViewModel;
     private DeviceListAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.navigation_drawer);
+        getLayoutInflater().inflate(R.layout.activity_main, findViewById(R.id.content_frame));
+        setupNavigation();
 
         Context context = getApplicationContext();
 

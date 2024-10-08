@@ -15,17 +15,23 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import com.example.securepro.presentation.home.DeviceListActivity;
+import com.example.securepro.utils.BaseActivity;
 
 import java.util.concurrent.Executor;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
+//        setContentView(R.layout.navigation_drawer);
+//        setupNavigation();
+
+        // Set up Navigation bar
+//        setupNavigation();
+
         Context context = getApplicationContext();
 
         BiometricManager biometricManager = BiometricManager.from(this);

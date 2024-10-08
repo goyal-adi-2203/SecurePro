@@ -18,4 +18,8 @@
     <string name="submit">Submit</string>
     <string name="enter_password">Enter Password</string>
     <string name="device_icon">Device Icon</string>
+    <string name="navigation_drawer_open">Open</string>
+    <string name="navigation_drawer_close">Close</string>
+    <string name="item_1">Item 1</string>
+    <string name="item_2">Item 2</string>
 </resources>

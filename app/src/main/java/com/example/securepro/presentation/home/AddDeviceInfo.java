@@ -12,8 +12,9 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.securepro.R;
 import com.example.securepro.domain.model.Device;
+import com.example.securepro.utils.BaseActivity;
 
-public class AddDeviceInfo extends AppCompatActivity {
+public class AddDeviceInfo extends BaseActivity {
 
     private DeviceViewModel deviceViewModel;
 
@@ -23,7 +24,9 @@ public class AddDeviceInfo extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_device_info);
+        setContentView(R.layout.navigation_drawer);
+        getLayoutInflater().inflate(R.layout.activity_add_device_info, findViewById(R.id.content_frame));
+        setupNavigation();
 
         Context context = getApplicationContext();
 

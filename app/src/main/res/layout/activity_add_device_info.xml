@@ -8,7 +8,6 @@
     android:orientation="vertical"
     tools:context=".presentation.home.AddDeviceInfo">
 
-
     <TextView
         android:id="@+id/deviceIdTextView"
         android:layout_width="wrap_content"
