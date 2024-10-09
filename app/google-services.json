@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "108579720749",
+    "project_id": "pro-cb22e",
+    "storage_bucket": "pro-cb22e.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:108579720749:android:8c2249f0ad1c8644a932a4",
+        "android_client_info": {
+          "package_name": "com.example.securepro"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBzqUeVjK_4WhgpuDVeYxanqHTrAJq3rBk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

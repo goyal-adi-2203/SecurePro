@@ -32,6 +32,12 @@ public class MainActivity extends BaseActivity {
         // Set up Navigation bar
 //        setupNavigation();
 
+        initFirebase();
+        // Request notification permission for Android 13+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            checkNotificationPermission();
+        }
+
         Context context = getApplicationContext();
 
         BiometricManager biometricManager = BiometricManager.from(this);
