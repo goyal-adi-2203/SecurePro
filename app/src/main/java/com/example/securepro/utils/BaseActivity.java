@@ -29,7 +29,7 @@ public class BaseActivity extends AppCompatActivity {
     protected DrawerLayout drawerLayout;
     protected NavigationView navigationView;
     protected Toolbar toolbar;
-    String TAG = "SecurePro";
+    String TAG = "SecureProBase";
     private static final int REQUEST_NOTIFICATION_PERMISSION = 1;
 
     @Override
@@ -136,5 +136,9 @@ public class BaseActivity extends AppCompatActivity {
                 super.onRequestPermissionsResult(requestCode, permissions, grantResults);
             }
         }
+    }
+
+    public void getBiometric(){
+        Log.d(TAG, "getBiometric: fetched");
     }
 }

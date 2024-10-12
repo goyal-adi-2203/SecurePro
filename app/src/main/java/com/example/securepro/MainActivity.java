@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricManager;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 
 import android.app.KeyguardManager;
@@ -12,9 +15,15 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
+import com.example.securepro.data.local.UserDao;
+import com.example.securepro.domain.model.User;
+import com.example.securepro.domain.repository.UserRepository;
 import com.example.securepro.presentation.home.DeviceListActivity;
+import com.example.securepro.presentation.login.LoginActivity;
+import com.example.securepro.presentation.login.LoginViewModel;
 import com.example.securepro.utils.BaseActivity;
 
 import java.util.concurrent.Executor;
@@ -22,15 +31,26 @@ import java.util.concurrent.Executor;
 public class MainActivity extends BaseActivity {
 
     private static final int REQUEST_CODE_CONFIRM_DEVICE_CREDENTIALS = 1;
+    String TAG = "mainTag";
+    LoginViewModel loginViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        setContentView(R.layout.navigation_drawer);
-//        setupNavigation();
+        Context context = getApplicationContext();
 
-        // Set up Navigation bar
-//        setupNavigation();
+        loginViewModel = new ViewModelProvider(this, ViewModelProvider.AndroidViewModelFactory.getInstance(getApplication())).get(LoginViewModel.class);
+        loginViewModel.getUser().observe(this, new Observer<User>() {
+            @Override
+            public void onChanged(User user) {
+                if(user == null){
+                    Intent intent = new Intent(context, LoginActivity.class);
+                    startActivity(intent);
+                } else {
+                    getBiometric();
+                }
+            }
+        });
 
         initFirebase();
         // Request notification permission for Android 13+
@@ -38,7 +58,6 @@ public class MainActivity extends BaseActivity {
             checkNotificationPermission();
         }
 
-        Context context = getApplicationContext();
 
         BiometricManager biometricManager = BiometricManager.from(this);
         switch (biometricManager.canAuthenticate(BiometricManager.Authenticators.BIOMETRIC_STRONG)){
@@ -81,6 +100,7 @@ public class MainActivity extends BaseActivity {
             public void onAuthenticationFailed() {
                 super.onAuthenticationFailed();
                 // Handle failed authentication
+                Toast.makeText(context, "Authentication Failed Try Again", Toast.LENGTH_SHORT).show();
             }
         });
 

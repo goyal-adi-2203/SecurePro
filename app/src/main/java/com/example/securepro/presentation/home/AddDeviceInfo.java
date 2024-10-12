@@ -54,8 +54,10 @@ public class AddDeviceInfo extends BaseActivity {
                         Toast toast = Toast.makeText(context, "Password does not match!!", Toast.LENGTH_SHORT);
                         toast.show();
                     } else {
+                        // insert into database
                         Device newDevice = new Device(deviceIdEditText.getText().toString(), deviceNameEditText.getText().toString(), passwordEditText.getText().toString(), deviceTypeEditText.getText().toString());
                         deviceViewModel.insert(newDevice);
+
                         Toast toast = Toast.makeText(context, "Device added!!", Toast.LENGTH_SHORT);
                         toast.show();
 

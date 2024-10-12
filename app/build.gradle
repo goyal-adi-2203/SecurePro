@@ -9,6 +9,10 @@ android {
     namespace 'com.example.securepro'
     compileSdk 34
 
+    buildFeatures {
+        buildConfig true
+    }
+
     defaultConfig {
         applicationId "com.example.securepro"
         minSdk 25
@@ -29,6 +33,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"http://192.168.238.178:8747/api/\""
+            buildConfigField "String", "BASE_URL2", "\"http://192.168.1.7:8747/api/\""
+        }
+
+//        https://securepro-backend.onrender.com/
+        debug {
+            buildConfigField "String", "BASE_URL", "\"http://192.168.238.178:8747/api/\""
+            buildConfigField "String", "BASE_URL2", "\"http://192.168.1.7:8747/api/\""
         }
     }
     compileOptions {
