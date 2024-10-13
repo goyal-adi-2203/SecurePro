@@ -11,12 +11,12 @@ import com.example.securepro.data.repository.UserRepositoryImpl;
 import com.example.securepro.domain.model.User;
 import com.example.securepro.domain.repository.UserRepository;
 
-public class LoginViewModel extends AndroidViewModel {
+public class UserViewModel extends AndroidViewModel {
 
     private UserRepository userRepository;
     private LiveData<User> userLiveData;
 
-    public LoginViewModel(@NonNull Application application) {
+    public UserViewModel(@NonNull Application application) {
         super(application);
         userRepository = new UserRepositoryImpl(application);
         userLiveData = userRepository.getUser();
@@ -30,7 +30,7 @@ public class LoginViewModel extends AndroidViewModel {
     }
 
     public LiveData<User> getUser(){
-        return userLiveData;
+        return userRepository.getUser();
     }
 
     public void update(User user){
