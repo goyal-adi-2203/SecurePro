@@ -1,146 +1,132 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".presentation.home.AddDeviceInfo">
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/deviceIdTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/device_id"
-        android:textSize="20sp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".presentation.home.AddDeviceInfo">
 
-    <EditText
-        android:id="@+id/deviceIdEditText"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:hint="@string/placeholder_device_id"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/deviceNameTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/device_name"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/deviceNameEditText"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:hint="@string/placeholder_device_name"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/deviceTypeTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/device_type"
-        android:textSize="20sp" />
-
-    <EditText
-        android:id="@+id/deviceTypeEditText"
-        android:layout_width="300dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:ems="10"
-        android:hint="@string/placeholder_device_type"
-        android:inputType="text" />
-
-    <TextView
-        android:id="@+id/passwordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/password"
-        android:textSize="20sp" />
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:hint="@string/placeholder_password"
-        android:scrollbarSize="25dp"
-        app:passwordToggleEnabled="true">
+        <TextView
+            android:id="@+id/deviceIdTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/device_id"
+            android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/passwordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:id="@+id/deviceIdEditText"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="@string/placeholder_device_id"
+            android:inputType="text" />
 
-    </com.google.android.material.textfield.TextInputLayout>
-    <!--    <com.google.android.material.textfield.TextInputEditText-->
-    <!--        -->
-    <!--        android:layout_width="300dp"-->
-    <!--        android:layout_height="40dp"-->
-    <!--        android:layout_marginTop="10dp"-->
-    <!--        android:layout_marginStart="20dp"-->
-    <!--        android:ems="10"-->
-    <!--        android:inputType="textPassword"-->
-    <!--        android:hint="@string/placeholder_password" />-->
-
-    <TextView
-        android:id="@+id/reenterPasswordTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="40dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        android:text="@string/password_check"
-        android:textSize="20sp" />
-
-<!--    <EditText-->
-<!--        -->
-<!--        android:layout_width="300dp"-->
-<!--        android:layout_height="40dp"-->
-<!--        android:layout_marginStart="20dp"-->
-<!--        android:layout_marginTop="10dp"-->
-<!--        android:ems="10"-->
-<!--        android:hint="@string/"-->
-<!--        android:inputType="textPassword" />-->
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:layout_width="350dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="20dp"
-        android:hint="@string/placeholder_renter_pswd"
-        android:scrollbarSize="25dp"
-        app:passwordToggleEnabled="true">
+        <TextView
+            android:id="@+id/deviceNameTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/device_name"
+            android:textSize="20sp" />
 
         <EditText
-            android:id="@+id/reenterPasswordEditText"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:textSize="15sp"
+            android:id="@+id/deviceNameEditText"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:ems="10"
-            android:inputType="textPassword" />
+            android:hint="@string/placeholder_device_name"
+            android:inputType="text" />
 
-    </com.google.android.material.textfield.TextInputLayout>
+        <TextView
+            android:id="@+id/deviceTypeTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/device_type"
+            android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/submitBtnAddDevice"
-        android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="55dp"
-        android:layout_marginTop="50dp"
-        android:text="@string/submit" />
+        <EditText
+            android:id="@+id/deviceTypeEditText"
+            android:layout_width="300dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:ems="10"
+            android:hint="@string/placeholder_device_type"
+            android:inputType="text" />
 
-</LinearLayout>
+        <TextView
+            android:id="@+id/passwordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/password"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:hint="@string/placeholder_password"
+            android:scrollbarSize="25dp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/passwordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/reenterPasswordTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="32dp"
+            android:text="@string/password_check"
+            android:textSize="20sp" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:layout_width="350dp"
+            android:layout_height="60dp"
+            android:layout_marginStart="20dp"
+            android:hint="@string/placeholder_renter_pswd"
+            android:scrollbarSize="25dp"
+            app:passwordToggleEnabled="true">
+
+            <EditText
+                android:id="@+id/reenterPasswordEditText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:ems="10"
+                android:inputType="textPassword"
+                android:textSize="15sp" />
+
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <Button
+            android:id="@+id/submitBtnAddDevice"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="55dp"
+            android:layout_marginTop="50dp"
+            android:text="@string/submit" />
+
+    </LinearLayout>
+</ScrollView>

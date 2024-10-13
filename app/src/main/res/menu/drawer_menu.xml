@@ -12,6 +12,11 @@
         android:title="@string/edit_profile" />
 
     <item
+        android:id="@+id/device_list_menu_item"
+        android:icon="@drawable/ic_shield"
+        android:title="@string/device_list" />
+
+    <item
         android:id="@+id/get_help_menu_item"
         android:icon="@drawable/ic_get_help"
         android:title="@string/get_help" />

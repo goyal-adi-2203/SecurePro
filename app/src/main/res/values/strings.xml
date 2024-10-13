@@ -27,4 +27,9 @@
     <string name="profile">Profile</string>
     <string name="edit_profile">Edit Profile</string>
     <string name="get_help">Get Help?</string>
+    <string name="profile_image">Profile Image</string>
+    <string name="placeholder">Placeholder</string>
+    <string name="device_list">Device List</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
 </resources>

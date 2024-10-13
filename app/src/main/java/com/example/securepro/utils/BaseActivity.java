@@ -41,13 +41,27 @@ import com.example.securepro.domain.model.User;
 import com.example.securepro.presentation.home.DeviceListActivity;
 import com.example.securepro.presentation.login.LoginActivity;
 import com.example.securepro.presentation.login.UserViewModel;
+import com.example.securepro.presentation.profile.EditProfileActivity;
+import com.example.securepro.presentation.profile.ProfileActivity;
+import com.example.securepro.services.ApiService.AuthService.AuthService;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.messaging.FirebaseMessaging;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.Executor;
+
+import okhttp3.ResponseBody;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -155,8 +169,19 @@ public class BaseActivity extends AppCompatActivity {
 
             if (itemId == R.id.profile_menu_item){
                 Log.d(TAG, "setupNavigation: go to profile activity");
+                Intent intent = new Intent(this, ProfileActivity.class);
+                startActivity(intent);
+//                finish();
             } else if (itemId == R.id.edit_profile_menu_item) {
                 Log.d(TAG, "setupNavigation: go to edit profile activity");
+                Intent intent = new Intent(this, EditProfileActivity.class);
+                startActivity(intent);
+//                finish();
+            } else if (itemId == R.id.device_list_menu_item) {
+                Log.d(TAG, "setupNavigation: go to device list");
+                Intent intent = new Intent(this, DeviceListActivity.class);
+                startActivity(intent);
+//                finish();
             } else if (itemId == R.id.get_help_menu_item) {
                 Log.d(TAG, "setupNavigation: go to get help activity");
             } else if(itemId == R.id.logout_menu_item){
@@ -167,12 +192,8 @@ public class BaseActivity extends AppCompatActivity {
                     public void onChanged(User user) {
                         if (user != null) {
                             String username = user.getUsername();
-                            Toast.makeText(context, "Goodbye " + username + "!", Toast.LENGTH_SHORT).show();
-                            userViewModel.delete();
-
-                            Intent intent = new Intent(context, MainActivity.class);
-                            startActivity(intent);
-                            finish();
+                            Log.d(TAG, "onChanged: logout" + username);
+                            logout(username, context, userViewModel);
                         } else {
                             Log.e(TAG, "onChanged: User not found");
                         }
@@ -184,6 +205,49 @@ public class BaseActivity extends AppCompatActivity {
 
             drawerLayout.closeDrawers();  // Close the drawer after item click
             return true;
+        });
+    }
+
+    public void logout(String username, Context context, UserViewModel userViewModel){
+        AuthService authService = RetrofitClient.createAuthService();
+        Map<String, Object> requestBody = new HashMap(){{
+            put("username", username);
+        }};
+
+        Call<ResponseBody> call = authService.logout(requestBody);
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if(response.isSuccessful()){
+                    Toast.makeText(context, "Goodbye " + username + "!", Toast.LENGTH_SHORT).show();
+
+                    userViewModel.delete();
+
+                    Intent intent = new Intent(context, MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                } else {
+                    Log.e(TAG, "onResponse: Error " + response.code());
+                    try {
+                        String errorMessage = response.errorBody().string();
+                        JSONObject jsonObject = new JSONObject(errorMessage);
+                        String message = jsonObject.has("message") ? jsonObject.getString("message") : "";
+                        Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+
+                        Log.e(TAG, "onResponse: Error " + response.errorBody().string());
+                    } catch (IOException | JSONException e) {
+                        Log.e(TAG, "onResponse: Error");
+                        e.printStackTrace();
+                    }
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e(TAG, "onFailure: " + call.request().toString());
+                Log.e("RetrofitError", t.getMessage(), t);
+                Toast.makeText(context, "Server Error! Please Try Again", Toast.LENGTH_SHORT).show();
+            }
         });
     }
 

@@ -128,11 +128,11 @@ public class LoginActivity extends AppCompatActivity {
 
         if (jsonObject.has("data")) {
             JSONObject data = (JSONObject) jsonObject.get("data");
-            String accessLevel = data.has("access_level") ? data.getString("access_level") : "";
+            String accessLevel = data.has("accessLevel") ? data.getString("accessLevel") : "";
             String address = data.has("address") ? data.getString("address") : "";
             String gender = data.has("gender") ? data.getString("gender") : "";
             String name = data.has("name") ? data.getString("name") : "";
-            String mobileNo = data.has("mobile_no") ? data.getString("mobile_no") : "";
+            String mobileNo = data.has("mobileNo") ? data.getString("mobileNo") : "";
             Integer age = Integer.parseInt(data.has("age") ? data.getString("age") : null);
             String email = data.has("email") ? data.getString("email") : "";
             String profilePicturePath = data.has("profilePicturePath") ? data.getString("profilePicturePath") : "";

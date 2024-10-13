@@ -15,4 +15,7 @@ public interface AuthService extends ApiService {
 
     @POST(AUTH_ROUTE + "/signup")
     Call<ResponseBody> signup(@Body Map<String, Object> request);
+
+    @POST(AUTH_ROUTE + "/logout")
+    Call<ResponseBody> logout(@Body Map<String, Object> request);
 }

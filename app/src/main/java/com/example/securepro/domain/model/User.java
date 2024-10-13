@@ -30,6 +30,9 @@ public class User {
     private Integer age;
 
     @Ignore
+    public User(){}
+
+    @Ignore
     public User(String userId, String username, String password, String name, String email, String profilePicturePath) {
         this.userId = userId;
         this.username = username;

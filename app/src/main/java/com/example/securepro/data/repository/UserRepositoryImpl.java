@@ -19,11 +19,13 @@ public class UserRepositoryImpl implements UserRepository {
     private UserDao userDao;
     private ExecutorService executorService;
     private LiveData<List<User>> userList;
+    private LiveData<User> userLiveData;
     private String TAG = "user_repo_impl";
 
     public UserRepositoryImpl(Application application) {
         AppRoomDatabase db = AppRoomDatabase.getInstance(application);
         userDao = db.userDao();
+        userLiveData = userDao.getUser();
         executorService = Executors.newFixedThreadPool(2);
     }
 
@@ -35,7 +37,7 @@ public class UserRepositoryImpl implements UserRepository {
 
     @Override
     public LiveData<User> getUser() {
-        return userDao.getUser();
+        return userLiveData;
     }
 
     @Override

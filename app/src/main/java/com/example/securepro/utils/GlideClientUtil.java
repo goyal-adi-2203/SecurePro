@@ -11,6 +11,7 @@ import com.example.securepro.R;
 
 public class GlideClientUtil {
     private static String baseUrl = BuildConfig.BASE_URL2;
+//    private static String baseUrl = BuildConfig.BASE_URL3;
     private static Glide glide = null;
 
     public static void getGlide(Context context, String path, ImageView view){
