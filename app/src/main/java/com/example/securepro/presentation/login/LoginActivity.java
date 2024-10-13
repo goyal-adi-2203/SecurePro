@@ -2,7 +2,6 @@ package com.example.securepro.presentation.login;
 
 import android.app.Application;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -10,22 +9,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
-import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.securepro.R;
-import com.example.securepro.data.local.UserDao;
-import com.example.securepro.data.repository.UserRepositoryImpl;
-import com.example.securepro.domain.model.Device;
 import com.example.securepro.domain.model.User;
-import com.example.securepro.domain.repository.UserRepository;
-import com.example.securepro.presentation.home.DeviceViewModel;
 import com.example.securepro.services.ApiService.AuthService.AuthService;
 import com.example.securepro.utils.RetrofitClient;
 
@@ -34,15 +22,12 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -53,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
     private String userId = "1";
     private Context context;
     private Application application;
-    private LoginViewModel loginViewModel;
+    private UserViewModel userViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         context = getApplicationContext();
         application = getApplication();
 
-        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
 
 //        createUserIfNotExists();
 
@@ -131,6 +116,7 @@ public class LoginActivity extends AppCompatActivity {
                          public void onFailure(Call<ResponseBody> call, Throwable t) {
                              Log.e(TAG, "onFailure: " + call.request().toString());
                              Log.e("RetrofitError", t.getMessage(), t);
+                             Toast.makeText(LoginActivity.this, "Server Error! Please Try Again", Toast.LENGTH_SHORT).show();
                          }
                      }
         );
@@ -164,7 +150,7 @@ public class LoginActivity extends AppCompatActivity {
                     mobileNo,
                     age
             );
-            loginViewModel.insert(user);
+            userViewModel.insert(user);
             Log.d(TAG, "createUser: user inserted" + user.toString());
         } else {
             throw new JSONException("No data");

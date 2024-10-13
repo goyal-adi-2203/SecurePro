@@ -10,7 +10,7 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient {
-    private static final String baseUrl = BuildConfig.BASE_URL2;
+    private static final String baseUrl = BuildConfig.BASE_URL2 + "api/";
     private static Retrofit retrofit = null;
 
     public static Retrofit getClient(){

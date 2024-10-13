@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define CircularImageView style -->
+    <style name="CircularImageViewStyle">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item> <!-- This ensures the image is circular -->
+    </style>
+</resources>

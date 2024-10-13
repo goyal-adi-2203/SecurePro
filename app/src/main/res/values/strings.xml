@@ -23,4 +23,8 @@
     <string name="item_1">Item 1</string>
     <string name="item_2">Item 2</string>
     <string name="username">Username</string>
+    <string name="logout">Logout</string>
+    <string name="profile">Profile</string>
+    <string name="edit_profile">Edit Profile</string>
+    <string name="get_help">Get Help?</string>
 </resources>
