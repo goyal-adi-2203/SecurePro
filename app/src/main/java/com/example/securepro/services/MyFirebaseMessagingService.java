@@ -17,8 +17,10 @@ import com.example.securepro.R;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
+import java.util.Map;
+
 public class MyFirebaseMessagingService extends FirebaseMessagingService {
-    private String TAG = "SecurePro";
+    private String TAG = "NotifMessagingService";
     private final String CHANNEL_ID = "esp32_alerts_channel";
 
     private NotificationService notificationService;
@@ -36,7 +38,25 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
         Log.d(TAG, "From: " + remoteMessage.getFrom());
 
+        RemoteMessage.Notification notification = remoteMessage.getNotification();
+        if(notification != null){
+            Log.d(TAG, "Message Notification Title: " + notification.getTitle());
+            Log.d(TAG, "Message Notification Body: " + notification.getBody());
+            Log.d(TAG, "Message Notification Icon: " + notification.getIcon());
+            Log.d(TAG, "Message Notification Sound: " + notification.getSound());
+
+            // Show the notification using the notification payload
+            notificationService.showNotification(notification.getTitle(), notification.getBody(), CHANNEL_ID);
+        }
+
         if (!remoteMessage.getData().isEmpty()) {
+            Log.d(TAG, "Message data payload: " + remoteMessage.getData().toString());
+
+            // Iterate through each data key-value pair
+            for (Map.Entry<String, String> entry : remoteMessage.getData().entrySet()) {
+                Log.d(TAG, "Key: " + entry.getKey() + " Value: " + entry.getValue());
+            }
+
             String title = remoteMessage.getData().get("title");
             String body = remoteMessage.getData().get("body");
             Log.d(TAG, "Notification Title: " + title);

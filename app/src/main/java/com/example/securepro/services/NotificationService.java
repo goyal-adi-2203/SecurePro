@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.core.app.NotificationCompat;
 
@@ -14,7 +15,7 @@ import com.example.securepro.MainActivity;
 import com.example.securepro.R;
 
 public class NotificationService {
-    private String TAG = "SecurePro";
+    private String TAG = "notifServiceTag";
     private String CHANNEL_ID = "esp32_alerts_channel";
     private String ESP32_ALERTS = "ESP 32 Alerts";
 
@@ -46,6 +47,7 @@ public class NotificationService {
 
     public void showNotification(String title, String message, String channelId) {
         // Create an Intent to launch your app when the user taps the notification
+        Log.d(TAG, "showNotification: " + title);
         Intent intent = new Intent(context, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 
@@ -59,10 +61,11 @@ public class NotificationService {
                         .setContentTitle(title)
                         .setContentText(message)
                         .setAutoCancel(true)  // Automatically remove the notification when tapped
-                        .setPriority(NotificationCompat.PRIORITY_HIGH)  // Show as a heads-up notification
-                        .setCategory(Notification.CATEGORY_ALARM)
-                        .setContentIntent(pendingIntent)
-                        .setDefaults(NotificationCompat.DEFAULT_ALL);  // Intent to launch the app
+                        .setPriority(NotificationCompat.PRIORITY_HIGH)
+                        .setDefaults(NotificationCompat.DEFAULT_ALL)
+                        .setVisibility(NotificationCompat.VISIBILITY_PUBLIC)
+                        .setCategory(NotificationCompat.CATEGORY_ALARM)
+                        .setContentIntent(pendingIntent);  // Intent to launch the app
 
         // Get the NotificationManager service
         NotificationManager notificationManager =
@@ -70,6 +73,7 @@ public class NotificationService {
 
         // Show the notification
         int notificationId = (int) System.currentTimeMillis();
+        Log.d(TAG, "Displaying notif: " + notificationId);
         notificationManager.notify(notificationId, notificationBuilder.build());
 
     }

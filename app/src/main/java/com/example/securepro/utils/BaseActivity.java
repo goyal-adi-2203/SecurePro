@@ -271,29 +271,7 @@ public class BaseActivity extends AppCompatActivity {
     }
 
 
-    protected void initFirebase() {
-        // Initialize Firebase
-        FirebaseMessaging.getInstance().subscribeToTopic("esp32_notifications")
-                .addOnCompleteListener(task -> {
-                    String msg = task.isSuccessful() ? "Subscribed" : "Subscription failed";
-                    Log.d(TAG, msg);
-                });
 
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w(TAG, "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-
-                        String token = task.getResult();
-                        Log.d(TAG, "FCM Registration Token: " + token);
-                        // You can send this token to your ESP32 or backend for notifications
-                    }
-                });
-    }
 
     @RequiresApi(api = Build.VERSION_CODES.TIRAMISU)
     protected void checkNotificationPermission() {

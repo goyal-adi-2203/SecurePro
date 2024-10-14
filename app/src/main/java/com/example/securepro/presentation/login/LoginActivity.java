@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProvider;
 import com.example.securepro.R;
 import com.example.securepro.domain.model.User;
 import com.example.securepro.services.ApiService.AuthService.AuthService;
+import com.example.securepro.utils.FirebaseMessagingInit;
 import com.example.securepro.utils.RetrofitClient;
 
 import org.json.JSONException;
@@ -87,6 +88,7 @@ public class LoginActivity extends AppCompatActivity {
                                      try {
                                          String responseBody = response.body().string();
                                          createUser(responseBody, username, password);
+                                         FirebaseMessagingInit.initFirebase(username, context);
                                      } catch (IOException | JSONException e) {
                                          Log.e(TAG, "onResponse: Error");
                                          e.printStackTrace();
@@ -107,7 +109,7 @@ public class LoginActivity extends AppCompatActivity {
                                      Log.e(TAG, "onResponse: Error " + response.errorBody().string());
                                  } catch (IOException | JSONException e) {
                                      Log.e(TAG, "onResponse: Error");
-                                     e.printStackTrace();
+                                     e.printStackTrace()    ;
                                  }
                              }
                          }
