@@ -13,8 +13,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.example.securepro.R;
+import com.example.securepro.controllers.DeviceController.DeviceController;
+import com.example.securepro.domain.model.Device;
 import com.example.securepro.domain.model.User;
+import com.example.securepro.presentation.home.DeviceViewModel;
 import com.example.securepro.services.ApiService.AuthService.AuthService;
+import com.example.securepro.services.ApiService.DeviceService.DeviceService;
 import com.example.securepro.utils.FirebaseMessagingInit;
 import com.example.securepro.utils.RetrofitClient;
 
@@ -23,6 +27,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.ResponseBody;
@@ -40,6 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     private Context context;
     private Application application;
     private UserViewModel userViewModel;
+    private DeviceViewModel deviceViewModel;
+    private DeviceController deviceController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +57,8 @@ public class LoginActivity extends AppCompatActivity {
         application = getApplication();
 
         userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
+        deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
+        deviceController = new DeviceController();
 //        createUserIfNotExists();
 
         usernameEditText = findViewById(R.id.usernameInput);
@@ -87,6 +95,9 @@ public class LoginActivity extends AppCompatActivity {
 
                                      try {
                                          String responseBody = response.body().string();
+
+                                         deviceController.fetchDevices(username, context, deviceViewModel);
+
                                          createUser(responseBody, username, password);
                                          FirebaseMessagingInit.initFirebase(username, context);
                                      } catch (IOException | JSONException e) {
@@ -109,7 +120,7 @@ public class LoginActivity extends AppCompatActivity {
                                      Log.e(TAG, "onResponse: Error " + response.errorBody().string());
                                  } catch (IOException | JSONException e) {
                                      Log.e(TAG, "onResponse: Error");
-                                     e.printStackTrace()    ;
+                                     e.printStackTrace();
                                  }
                              }
                          }
@@ -158,4 +169,5 @@ public class LoginActivity extends AppCompatActivity {
             throw new JSONException("No data");
         }
     }
+
 }
