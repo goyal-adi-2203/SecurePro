@@ -3,6 +3,7 @@ package com.example.securepro.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,14 +14,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.securepro.R;
+import com.example.securepro.callbacks.PasswordValidationCallback;
+import com.example.securepro.controllers.DeviceController.DeviceController;
 import com.example.securepro.domain.model.Device;
+import com.example.securepro.domain.model.User;
+import com.example.securepro.presentation.login.UserViewModel;
 import com.example.securepro.utils.DeviceListAdapter.DeviceViewHolder;
 
 import java.util.List;
+import java.util.Map;
+
 public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
+
+    private User user;
 
     class DeviceViewHolder extends RecyclerView.ViewHolder{
 
@@ -40,10 +52,21 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
     private LayoutInflater layoutInflater;
     private List<Device> data;
     private Context context;
+    private String TAG = "adapterClass";
 
     public DeviceListAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
         this.context = context;
+    }
+
+    public DeviceListAdapter(Context context, User user){
+        layoutInflater = LayoutInflater.from(context);
+        this.context = context;
+        this.user = user;
+    }
+
+    public void setUser(User user){
+        this.user = user;
     }
 
     @NonNull
@@ -77,7 +100,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
                     break;
             }
 
-            holder.deviceStatusTextView.setText("Locked");
+            holder.deviceStatusTextView.setText(device.getStatus());
             holder.enterPasswordButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -98,6 +121,9 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
     }
 
     private void openEnterPasswordDialog(Device device){
+
+//        Log.d(TAG, "openEnterPasswordDialog: " + user.toString());
+
         AlertDialog.Builder builder = new AlertDialog.Builder(context);
         builder.setTitle("Enter Password");
 
@@ -109,22 +135,34 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
         // Set up the buttons
         builder.setPositiveButton("OK", (dialog, which) -> {
             String enteredPassword = input.getText().toString();
-            // Validate or use the entered password as needed
 
-            Toast t = new Toast(context);
-            t.setDuration(Toast.LENGTH_SHORT);
+            new DeviceController().validatePassword(enteredPassword, device.getId(), user.getUserId(), context, new PasswordValidationCallback() {
+                @Override
+                public void onSuccess(Map<String, Object> responseData) {
+                    Log.d(TAG, "openEnterPasswordDialog: " + responseData.toString());
 
-            if (enteredPassword.equals(device.getPassword())) {
-                // Do something if password is correct
-                t.setText("Correct password");
-            } else {
-                // Handle incorrect password
-                t.setText("Incorrect password");
-            }
-            t.show();
+                    boolean isValid = (boolean) responseData.get("check");
+                    String message = (String) responseData.get("message");
+
+                    Toast t = new Toast(context);
+                    t.setDuration(Toast.LENGTH_SHORT);
+
+                    if (isValid) {
+                        t.setText("Correct password");
+                    } else {
+                        t.setText("Incorrect password");
+                    }
+                    t.show();
+                }
+
+                @Override
+                public void onFailure(Map<String, Object> errorData) {
+                    Log.e(TAG, "Password validation failed");
+                    Toast.makeText(context, "Failed to validate password. Try again later.", Toast.LENGTH_SHORT).show();
+                }
+            });
         });
         builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
-
         builder.show();
     }
 }

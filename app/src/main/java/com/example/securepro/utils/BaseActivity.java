@@ -39,6 +39,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.securepro.domain.model.User;
 import com.example.securepro.presentation.home.DeviceListActivity;
+import com.example.securepro.presentation.home.DeviceViewModel;
 import com.example.securepro.presentation.login.LoginActivity;
 import com.example.securepro.presentation.login.UserViewModel;
 import com.example.securepro.presentation.profile.EditProfileActivity;
@@ -125,7 +126,7 @@ public class BaseActivity extends AppCompatActivity {
     protected void setupNavigation() {
         Context context = getApplicationContext();
         UserViewModel userViewModel = new ViewModelProvider(this).get(UserViewModel.class);
-
+        DeviceViewModel deviceViewModel = new ViewModelProvider(this).get(DeviceViewModel.class);
 
         // Initialize Toolbar and set it as the app bar
         toolbar = findViewById(R.id.toolbar);
@@ -193,7 +194,7 @@ public class BaseActivity extends AppCompatActivity {
                         if (user != null) {
                             String username = user.getUsername();
                             Log.d(TAG, "onChanged: logout" + username);
-                            logout(username, context, userViewModel);
+                            logout(username, context, userViewModel, deviceViewModel);
                         } else {
                             Log.e(TAG, "onChanged: User not found");
                         }
@@ -208,7 +209,7 @@ public class BaseActivity extends AppCompatActivity {
         });
     }
 
-    public void logout(String username, Context context, UserViewModel userViewModel){
+    public void logout(String username, Context context, UserViewModel userViewModel, DeviceViewModel deviceViewModel){
         AuthService authService = RetrofitClient.createAuthService();
         Map<String, Object> requestBody = new HashMap(){{
             put("username", username);
@@ -222,6 +223,7 @@ public class BaseActivity extends AppCompatActivity {
                     Toast.makeText(context, "Goodbye " + username + "!", Toast.LENGTH_SHORT).show();
 
                     userViewModel.delete();
+                    deviceViewModel.deleteAllDevices();
 
                     Intent intent = new Intent(context, MainActivity.class);
                     startActivity(intent);

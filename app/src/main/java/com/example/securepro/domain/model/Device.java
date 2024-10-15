@@ -12,12 +12,14 @@ public class Device {
     private String name;
     private String password;
     private String deviceType;
+    private String status;
 
-    public Device(String id, String name, String password, String deviceType) {
+    public Device(String id, String name, String password, String deviceType, String status) {
         this.id = id;
         this.name = name;
         this.password = password;
         this.deviceType = deviceType;
+        this.status = status;
     }
 
     public String getId() {
@@ -36,6 +38,10 @@ public class Device {
         return deviceType;
     }
 
+    public String getStatus() {
+        return status;
+    }
+
     public void setId(String id) {
         this.id = id;
     }
@@ -52,6 +58,10 @@ public class Device {
         this.deviceType = deviceType;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     @Override
     public String toString() {
         return "Device{" +
@@ -59,6 +69,8 @@ public class Device {
                 ", name='" + name + '\'' +
                 ", password='" + password + '\'' +
                 ", deviceType='" + deviceType + '\'' +
+                ", status='" + status + '\'' +
                 '}';
     }
+
 }

@@ -2,6 +2,7 @@ package com.example.securepro.utils;
 
 import com.example.securepro.BuildConfig;
 import com.example.securepro.services.ApiService.AuthService.AuthService;
+import com.example.securepro.services.ApiService.DeviceService.DeviceService;
 import com.example.securepro.services.ApiService.FcmService.FcmService;
 import com.example.securepro.services.ApiService.UserService.UserService;
 
@@ -44,5 +45,9 @@ public class RetrofitClient {
 
     public static FcmService createFcmService(){
         return getClient().create(FcmService.class);
+    }
+
+    public static DeviceService createDeviceService(){
+        return getClient().create(DeviceService.class);
     }
 }

@@ -13,7 +13,7 @@ import com.example.securepro.data.local.UserDao;
 import com.example.securepro.domain.model.Device;
 import com.example.securepro.domain.model.User;
 
-@Database(entities = {Device.class, User.class}, version = 7, exportSchema = false)
+@Database(entities = {Device.class, User.class}, version = 8, exportSchema = false)
 public abstract class AppRoomDatabase extends RoomDatabase {
     private static AppRoomDatabase instance;
     public abstract DeviceDao deviceDao();
