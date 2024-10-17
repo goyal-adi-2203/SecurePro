@@ -86,6 +86,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull DeviceViewHolder holder, int position) {
         if (data != null) {
+            Log.d(TAG, "onBindViewHolder: data " + data.get(position).toString());
             Device device = data.get(position);
 
             holder.deviceIdTextView.setText(device.getId());

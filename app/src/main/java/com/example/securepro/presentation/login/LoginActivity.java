@@ -162,9 +162,9 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void fetchAndSaveFcmToken(String username) throws IOException {
-        if(FirebaseApp.getApps(this).isEmpty()){
+//        if(FirebaseApp.getApps(this).isEmpty()){
             FirebaseMessagingInit.initFirebase(username, context);
-        }
+//        }
     }
 
     private void handleLoginFailure(Response<ResponseBody> response) {
