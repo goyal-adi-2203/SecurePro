@@ -37,6 +37,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
     class DeviceViewHolder extends RecyclerView.ViewHolder{
 
         private final ImageView deviceIcon;
+        private final TextView deviceIdTextView;
         private final TextView deviceNameTextView;
         private final TextView deviceStatusTextView;
         private final Button enterPasswordButton;
@@ -44,6 +45,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
         public DeviceViewHolder(@NonNull View itemView) {
             super(itemView);
             deviceIcon = (ImageView) itemView.findViewById(R.id.device_icon);
+            deviceIdTextView = (TextView) itemView.findViewById(R.id.device_id);
             deviceNameTextView = (TextView) itemView.findViewById(R.id.device_name);
             deviceStatusTextView = (TextView) itemView.findViewById(R.id.device_status);
             enterPasswordButton = (Button) itemView.findViewById(R.id.enter_password_button);
@@ -86,6 +88,7 @@ public class DeviceListAdapter extends RecyclerView.Adapter<DeviceViewHolder> {
         if (data != null) {
             Device device = data.get(position);
 
+            holder.deviceIdTextView.setText(device.getId());
             holder.deviceNameTextView.setText(device.getName());
 
             switch (device.getDeviceType().toLowerCase()){

@@ -21,6 +21,7 @@ import com.example.securepro.services.ApiService.AuthService.AuthService;
 import com.example.securepro.services.ApiService.DeviceService.DeviceService;
 import com.example.securepro.utils.FirebaseMessagingInit;
 import com.example.securepro.utils.RetrofitClient;
+import com.google.firebase.FirebaseApp;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -71,6 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                 String username = usernameEditText.getText().toString();
                 String password = passwordEditText.getText().toString();
                 login(username, password);
+
             }
         });
     }
@@ -96,10 +98,9 @@ public class LoginActivity extends AppCompatActivity {
                                      try {
                                          String responseBody = response.body().string();
 
-                                         deviceController.fetchDevices(username, context, deviceViewModel);
-
                                          createUser(responseBody, username, password);
-                                         FirebaseMessagingInit.initFirebase(username, context);
+                                         deviceController.fetchDevices(username, context, deviceViewModel);
+                                         fetchAndSaveFcmToken(username);
                                      } catch (IOException | JSONException e) {
                                          Log.e(TAG, "onResponse: Error");
                                          e.printStackTrace();
@@ -111,17 +112,7 @@ public class LoginActivity extends AppCompatActivity {
                                  }
                              } else {
                                  Log.e(TAG, "onResponse: Error " + response.code());
-                                 try {
-                                     String errorMessage = response.errorBody().string();
-                                     JSONObject jsonObject = new JSONObject(errorMessage);
-                                     String message = jsonObject.has("message") ? jsonObject.getString("message") : "";
-                                     Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
-
-                                     Log.e(TAG, "onResponse: Error " + response.errorBody().string());
-                                 } catch (IOException | JSONException e) {
-                                     Log.e(TAG, "onResponse: Error");
-                                     e.printStackTrace();
-                                 }
+                                 handleLoginFailure(response);
                              }
                          }
 
@@ -167,6 +158,24 @@ public class LoginActivity extends AppCompatActivity {
             Log.d(TAG, "createUser: user inserted" + user.toString());
         } else {
             throw new JSONException("No data");
+        }
+    }
+
+    private void fetchAndSaveFcmToken(String username) throws IOException {
+        if(FirebaseApp.getApps(this).isEmpty()){
+            FirebaseMessagingInit.initFirebase(username, context);
+        }
+    }
+
+    private void handleLoginFailure(Response<ResponseBody> response) {
+        try {
+            String errorMessage = response.errorBody().string();
+            JSONObject jsonObject = new JSONObject(errorMessage);
+            String message = jsonObject.optString("message", "Login failed");
+            Toast.makeText(context, message, Toast.LENGTH_SHORT).show();
+            Log.e(TAG, "onResponse: Error " + errorMessage);
+        } catch (IOException | JSONException e) {
+            Log.e(TAG, "onResponse: Error parsing error body", e);
         }
     }
 

@@ -1,5 +1,6 @@
 package com.example.securepro.services.ApiService.DeviceService;
 
+import com.example.securepro.domain.model.Device;
 import com.example.securepro.services.ApiService.ApiService;
 
 import java.util.Map;
@@ -17,4 +18,7 @@ public interface DeviceService extends ApiService {
 
     @POST(DEVICE_ROUTE + "/check-password/{userId}/{deviceId}")
     Call<ResponseBody> checkPassword(@Path("userId") String userid, @Path("deviceId") String deviceId, @Body Map<String, Object> requestBody);
+
+    @POST(DEVICE_ROUTE + "/save-device/{userId}")
+    Call<ResponseBody> saveDevice(@Path("userId") String userId, @Body Device device);
 }

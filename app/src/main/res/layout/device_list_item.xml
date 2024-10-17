@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="horizontal"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
     android:padding="8dp">
 
     <!-- Icon for the device type (door, window, etc.) -->
@@ -17,22 +16,44 @@
 
     <LinearLayout
         android:layout_width="0dp"
-        android:layout_weight="1"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
-        <!-- Device Name -->
-        <TextView
-            android:id="@+id/device_name"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:gravity="start|center"
-            android:textColor="@android:color/black"
-            android:background="@android:color/white"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:textSize="18sp" />
+            android:orientation="horizontal">
+
+            <!-- Device Id -->
+            <TextView
+                android:id="@+id/device_id"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.2"
+                android:background="@android:color/white"
+                android:gravity="start|center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:layout_marginEnd="5dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+
+            <!-- Device Name -->
+            <TextView
+                android:id="@+id/device_name"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:background="@android:color/white"
+                android:gravity="start|center"
+                android:paddingStart="8dp"
+                android:paddingEnd="8dp"
+                android:textColor="@android:color/black"
+                android:textSize="18sp" />
+        </LinearLayout>
+
 
         <!-- Status (Locked, Open, Buzzer On) -->
         <TextView
@@ -51,8 +72,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:text="@string/enter_password"
-        android:textColor="@android:color/white"
         android:backgroundTint="@android:color/holo_blue_dark"
-        android:padding="8dp" />
+        android:padding="8dp"
+        android:text="@string/enter_password"
+        android:textColor="@android:color/white" />
 </LinearLayout>
